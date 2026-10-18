@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f5f4f0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://api.dropboxapi.com https://content.dropboxapi.com; img-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'">
+  <title>Capture Inbox</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+ <div id="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark" aria-hidden="true"><span>↘</span></div><div><strong>Capture</strong><small>Inbox</small></div></div>
+    <nav aria-label="Capture views" class="nav">
+      <button class="nav-btn active" data-view="inbox"><span class="nav-ic">◫</span>Inbox <span class="nav-count" id="inbox-count">—</span></button>
+      <button class="nav-btn" data-view="act"><span class="nav-ic">↗</span>Act <span class="nav-count" id="act-count">—</span></button>
+      <button class="nav-btn" data-view="keep"><span class="nav-ic">◇</span>Keep <span class="nav-count" id="keep-count">—</span></button>
+      <button class="nav-btn" data-view="dismiss"><span class="nav-ic">◌</span>Dismiss <span class="nav-count" id="dismiss-count">—</span></button>
+      <div class="nav-separator"></div>
+      <button class="nav-btn" data-view="all"><span class="nav-ic">▦</span>All captures</button>
+    </nav>
+    <div class="sidebar-foot"><p class="eyebrow">STORAGE</p><div class="storage"><span class="status-dot" id="status-dot"></span><span id="connection-label">Demo · Not connected</span></div><button class="sidebar-settings" id="settings-btn">Settings <span>↗</span></button></div>
+  </aside>
+  <main class="workspace">
+    <header class="topbar"><button class="mobile-menu" id="menu-btn" aria-label="Open menu">☰</button><span class="eyebrow desktop-only">PERSONAL CAPTURE SYSTEM</span><span class="topbar-actions"><span id="mode-pill" class="mode-pill">DEMO</span><button class="icon-button" id="refresh-btn" aria-label="Refresh captures" title="Refresh captures">↻</button><button class="icon-button mobile-settings" id="mobile-settings-btn" aria-label="Settings">⚙</button></span></header>
+    <div class="workspace-body">
+      <section class="list-panel" aria-label="Capture list">
+        <div class="list-heading"><div><p class="eyebrow" id="section-eyebrow">NEEDS YOUR ATTENTION</p><h1 id="view-title">Inbox</h1><p class="subtext" id="view-subtitle">Things you've saved for later.</p></div><div class="big-counter" id="view-counter">0</div></div>
+        <div class="list-tools"><label class="search"><span aria-hidden="true">⌕</span><input id="search-input" type="search" autocomplete="off" placeholder="Search captured text…" aria-label="Search captures"><span class="kbd">/</span></label><select id="source-filter" aria-label="Filter by source"><option value="all">All sources</option></select></div>
+        <div id="message-bar" class="message-bar" role="status" hidden></div>
+        <div class="list-scroll" id="items-scroll"><div id="capture-list" class="capture-list"></div><button id="load-more" class="load-more" hidden>Load older captures</button></div>
+        <div class="list-bottom"><span id="list-footnote">A sample inbox. No personal data loaded.</span><button id="demo-toggle" class="text-button">Connect Dropbox →</button></div>
+      </section>
+      <section class="detail-panel" id="detail-panel" aria-label="Capture details">
+        <div id="detail-placeholder" class="detail-placeholder"><div class="placeholder-graphic">↗</div><h2>Everything worth remembering.</h2><p>Select a capture to review the text, see the original screenshot, and decide what to do next.</p></div>
+        <div id="detail-content" class="detail-content" hidden>
+          <div class="detail-top"><button class="back-button" id="back-btn">← Back to list</button><div class="detail-time" id="detail-date"></div></div>
+          <div class="detail-scroll"><div class="detail-meta"><span id="detail-source" class="source-chip"></span><span id="detail-status" class="status-chip"></span></div><h2 id="detail-title"></h2>
+            <div class="source-box"><div class="small-label">ORIGINAL SOURCE</div><p id="detail-source-name"></p><p class="detail-source-info" id="detail-source-info"></p><a id="detail-link" class="origin-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Open original ↗</a></div>
+            <div class="detail-section"><div class="section-header"><h3>Captured text</h3><button class="quiet-button" id="copy-btn">Copy text</button></div><div id="detail-text" class="captured-body"></div></div>
+            <div class="detail-section"><div class="section-header"><h3>Original screenshot</h3><button class="quiet-button" id="open-image" hidden>Open image ↗</button></div><div id="image-shell" class="image-shell"><p>Choose a capture to view the original.</p></div></div>
+            <div class="detail-section"><div class="section-header"><h3>Review note</h3><span class="small-label">PRIVATE · SYNCED</span></div><textarea id="review-note" rows="3" placeholder="What do I need to remember or do?"></textarea><div class="note-actions"><span id="note-save-msg" role="status"></span><button id="save-note" class="quiet-button note-save">Save note</button></div></div>
+          </div>
+          <div class="review-actions"><button class="review-btn act" data-set-status="act">↗ <span>Act</span></button><button class="review-btn keep" data-set-status="keep">◇ <span>Keep</span></button><button class="review-btn dismiss" data-set-status="dismiss">◌ <span>Dismiss</span></button><button class="review-btn inbox" data-set-status="inbox" title="Return to inbox">↶</button></div>
+        </div>
+      </section>
+    </div>
+  </main>
+ </div>
+ <dialog id="settings-dialog" aria-labelledby="settings-title"><div class="dialog-head"><div><p class="eyebrow">CONNECTION</p><h2 id="settings-title">Dropbox settings</h2></div><button class="dialog-close" id="close-settings" aria-label="Close settings">✕</button></div><p class="dialog-description">Your capture files stay in Dropbox. The site is public code, but capture contents are accessible only after Dropbox authorization.</p><label class="field-label" for="app-key">Dropbox app key (public identifier)</label><input id="app-key" class="field-input" type="text" spellcheck="false" autocomplete="off" placeholder="Enter App key from Dropbox App Console"><p class="field-hint">Never enter an app secret or access token here.</p><label class="field-label" for="folder-path">Dropbox API folder path</label><input id="folder-path" class="field-input" type="text" spellcheck="false" value="/Apps/Capture Inbox" placeholder="/Apps/Capture Inbox"><p class="field-hint">Use <code>/Apps/Capture Inbox</code> for Full Dropbox access to your existing archive. For a restricted App Folder integration, use its accessible folder path (often blank for its root), and ensure the Shortcut writes into that same folder.</p><div class="redirect"><span class="small-label">REDIRECT URI TO REGISTER IN DROPBOX</span><div class="redirect-row"><code id="redirect-uri"></code><button id="copy-redirect" class="quiet-button">Copy</button></div></div><div class="security-notice"><strong>Privacy:</strong> This browser-only prototype keeps OAuth tokens in the current tab's session storage, not in published files or permanent browser storage. Closing the tab requires reconnecting. Dropbox permissions determine which files the app can access.</div><div id="settings-status" class="setting-status" role="status"></div><div class="dialog-actions"><button id="demo-btn" class="secondary-button">Explore demo</button><button id="disconnect-btn" class="secondary-button" hidden>Disconnect</button><button id="connect-btn" class="primary-button">Connect Dropbox ↗</button></div><details class="setup-details"><summary>How to set up Dropbox OAuth</summary><ol><li>Visit <a href="https://www.dropbox.com/developers/apps" target="_blank" rel="noopener noreferrer">Dropbox App Console</a> and create a <strong>Scoped access</strong> application.</li><li>Select either <strong>Full Dropbox</strong> (works with your existing archive path, but grants broader access) or <strong>App Folder</strong> (restricted, but requires locating/moving captures into the app's folder).</li><li>Enable <code>files.metadata.read</code>, <code>files.content.read</code>, and <code>files.content.write</code> under Permissions, then submit.</li><li>Add the redirect URI displayed above under OAuth 2 → Redirect URIs. Enter the app key here, not the app secret.</li><li>Connect and approve access. Review status is saved as <code>_capture_inbox_state.json</code> alongside your captures.</li></ol></details></dialog>
+ <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
