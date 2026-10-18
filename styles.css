@@ -63,3 +63,16 @@ body[data-font-size="l"]{--font-scale:1.52}
 .remember-connection strong{display:block;font-size:13px;line-height:1.4}
 .remember-connection small{display:block;font-size:11px;line-height:1.6;color:#6e7e70;margin-top:4px}
 @media(max-width:760px){.review-btn{gap:5px}.review-btn .lucide{width:17px;height:17px}}
+
+/* v0.4 editable capture titles */
+.detail-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin:0 0 22px}
+.detail-title-row h2{font-size:calc(24px * var(--font-scale));line-height:1.24;letter-spacing:-.046em;font-weight:730;margin:0;overflow-wrap:anywhere;min-width:0;flex:1}
+.title-edit-button{white-space:nowrap;flex:none;margin-top:4px}
+.title-editor{background:#f0f3ed;border:1px solid #dfe7dc;border-radius:12px;padding:15px 16px;margin:-8px 0 24px}
+.title-editor label{display:block;color:#526b5c;font-size:calc(10px * var(--font-scale));font-weight:700;margin-bottom:8px}
+#title-input{width:100%;background:#fff;border:1px solid #cdd9cc;color:var(--ink);border-radius:8px;padding:10px 12px;font-size:calc(12px * var(--font-scale));line-height:1.5}
+#title-input:focus{outline:2px solid #79a48a;outline-offset:1px}
+.title-editor p{color:#748277;font-size:calc(9px * var(--font-scale));line-height:1.5;margin:8px 0 13px}
+.title-edit-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+#title-edit-status{margin-right:auto;font-size:calc(9px * var(--font-scale));color:#88633e}
+@media(max-width:760px){.detail-title-row h2{font-size:calc(22px * var(--font-scale))}.detail-title-row{gap:8px}.title-edit-button{padding:7px 9px}}
