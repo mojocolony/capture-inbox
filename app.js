@@ -39,9 +39,9 @@ function normalTag(value){return String(value||'').trim().replace(/\s+/g,' ').sl
 function knownTags(){const source=app.demo?demoRecords:Object.values(app.review);const tags=new Map();for(const record of source){if(!Array.isArray(record.tags))continue;for(const name of record.tags){const tag=normalTag(name);if(tag&&!tags.has(tag.toLocaleLowerCase()))tags.set(tag.toLocaleLowerCase(),tag);}}return [...tags.values()].sort((a,b)=>a.localeCompare(b));}
 
 function displayTitle(item){return reviewFor(item).title||item.title;}
-function cancelTitleEdit(){if(!app.busy){$('title-editor').hidden=true;$('title-edit-status').textContent='';}}
+function cancelTitleEdit(){$('title-editor').hidden=true;$('title-edit-status').textContent='';}
 function beginTitleEdit(){
- const record=records().find(x=>x.id===app.selectedId);if(!record||app.busy)return;
+ const record=records().find(x=>x.id===app.selectedId);if(!record)return;
  $('title-input').value=displayTitle(record);
  $('title-edit-status').textContent='';
  $('title-editor').hidden=false;
@@ -49,7 +49,7 @@ function beginTitleEdit(){
 }
 async function saveTitleEdit(){
  const id=app.selectedId,record=records().find(x=>x.id===id);
- if(!record||app.busy)return;
+ if(!record)return;
  const title=$('title-input').value.trim().replace(/\s+/g,' ');
  if(!title){$('title-edit-status').textContent='Enter a title.';return;}
  if(title===displayTitle(record)){cancelTitleEdit();return;}
