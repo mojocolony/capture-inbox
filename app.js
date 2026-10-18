@@ -104,17 +104,17 @@ function captureClock(r){
  const d=captureDate(r);
  return d?d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}):'';
 }
-function filteredRecords(){return records().filter(r=>{const status=reviewFor(r).status;if(app.view!=='all'&&status!==app.view)return false;if(app.source!=='all'&&r.source!==app.source)return false;const q=app.search.trim().toLowerCase();if(q&&!(`${displayTitle(r)}\n${r.title}\n${r.content}\n${r.source}\n${r.details}\n${reviewFor(r).note}`).toLowerCase().includes(q))return false;return true;});}
+function filteredRecords(){return records().filter(r=>{const status=reviewFor(r).status;if(app.view==='all'&&status==='trash')return false;if(app.view!=='all'&&status!==app.view)return false;if(app.source!=='all'&&r.source!==app.source)return false;const q=app.search.trim().toLowerCase();if(q&&!(`${displayTitle(r)}\n${r.title}\n${r.content}\n${r.source}\n${r.details}\n${reviewFor(r).note}`).toLowerCase().includes(q))return false;return true;});}
 const statuses={trash:['Trash','RECOVERABLE CAPTURES','Restore anything removed by mistake.'],inbox:['Inbox','NEEDS YOUR ATTENTION','Things you’ve saved for later.'],act:['Act','THINGS TO FOLLOW UP','Questions, errands and next steps.'],keep:['Keep','WORTH HOLDING ON TO','Good information to remember.'],dismiss:['Dismiss','ALREADY REVIEWED','Nothing further to do.'],all:['All captures','YOUR CAPTURE LIBRARY','Everything collected in one place.']};
 function nodeItem(r){const item=by('button','capture-item'+(app.selectedId===r.id?' active':''));item.type='button';item.dataset.id=r.id;const header=by('div','item-top');header.append(by('span','source-icon',iconFor(r.source)),by('span','source-name',r.source),by('span','item-time',captureClock(r)));item.append(header,by('h3','',displayTitle(r)),by('p','',r.content||'No readable text found. See original screenshot.'));const bottom=by('div','item-bottom');bottom.append(by('span','type-tag',r.kind||kindFor(r.source)));if(r.imagePath||app.demo)bottom.append(by('span','type-tag','▧ Screenshot'));const status=reviewFor(r).status;if(status!=='inbox')bottom.append(by('span','item-state '+status,status.charAt(0).toUpperCase()+status.slice(1)));item.append(bottom);item.addEventListener('click',()=>selectItem(r.id));
  const wrap=by('div','capture-row');wrap.append(item);
  if(reviewFor(r).status!=='trash'){
-  const action=by('button','capture-trash-button','×');
+  const action=by('button','capture-trash-button');action.append(document.querySelector('[data-view="trash"] .lucide').cloneNode(true));
   action.type='button';action.setAttribute('aria-label','Move '+displayTitle(r)+' to Trash');action.title='Move to Trash';
   action.addEventListener('click',e=>{e.stopPropagation();moveToTrash(r.id);});
   wrap.append(action);
  }else{
-  const action=by('button','capture-restore-button','↶');
+  const action=by('button','capture-restore-button');action.append(document.querySelector('#restore-capture .lucide').cloneNode(true));
   action.type='button';action.setAttribute('aria-label','Restore '+displayTitle(r));action.title='Restore capture';
   action.addEventListener('click',e=>{e.stopPropagation();restoreFromTrash(r.id);});
   wrap.append(action);
