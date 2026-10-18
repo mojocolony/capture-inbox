@@ -145,7 +145,7 @@ function renderTagEditor(r){
 }
 function renderDetail(r){renderTagEditor(r);$('trash-capture').hidden=reviewFor(r).status==='trash';$('trash-detail-actions').hidden=reviewFor(r).status!=='trash';$('detail-content').querySelector('.review-actions').hidden=reviewFor(r).status==='trash';$('detail-placeholder').hidden=true;$('detail-content').hidden=false;$('detail-date').textContent=friendlyDate(r.date,true);$('detail-source').textContent=r.source;$('detail-status').textContent=reviewFor(r).status.toUpperCase();$('detail-title').textContent=displayTitle(r);$('detail-source-name').textContent=r.source;$('detail-source-info').textContent=r.details||'No original link recorded';const link=safeLink(r.details);const e=$('detail-link');e.hidden=!link;if(link){e.href=link;e.textContent=link.startsWith('readdle-spark:')?'Open original email ↗':'Open original page ↗';}
  $('detail-text').textContent=r.content||'No readable text found.';$('review-note').value=reviewFor(r).note;$('note-save-msg').textContent='';for(const b of document.querySelectorAll('[data-set-status]'))b.classList.toggle('selected',b.dataset.setStatus===reviewFor(r).status);if(app.imageFor!==r.id){app.imageFor=r.id;openImage(r);}}
-function selectItem(id){$('title-editor').hidden=true;app.selectedId=id;app.imageFor=null;render();document.querySelector('.workspace').classList.add('show-detail');}
+function selectItem(id){$('tag-input').value='';$('tag-message').textContent='';$('title-editor').hidden=true;app.selectedId=id;app.imageFor=null;render();document.querySelector('.workspace').classList.add('show-detail');}
 function cleanError(err){return (err&&err.message||String(err)).replace(/(Bearer\s+|refresh_token=|access_token=)[^\s&]+/gi,'[redacted]').slice(0,300);}
 function updateSettings(){const clientId=$('app-key').value.trim(),folder=$('folder-path').value.trim().replace(/\/+$/,'');if(folder && !folder.startsWith('/')){$('settings-status').textContent='Folder path must start with /, or be left empty for the app-folder root.';return false;}if(!/^[a-zA-Z0-9_-]*$/.test(clientId)){$('settings-status').textContent='Please enter the Dropbox app key (letters and digits), not a secret.';return false;}settings={clientId,folder};localStorage.setItem(STORAGE_KEY,JSON.stringify(settings));return true;}
 function showSettings(){const dlg=$('settings-dialog');$('app-key').value=settings.clientId;$('folder-path').value=settings.folder;$('remember-connection').checked=localStorage.getItem(REMEMBER_KEY)==='yes';$('redirect-uri').textContent=redirectUri();$('disconnect-btn').hidden=!app.token;$('settings-status').textContent='';dlg.showModal();}
@@ -225,8 +225,8 @@ async function moveToTrash(id){
  const previous=reviewFor(record).status;if(previous==='trash')return;
  if(app.selectedId===id)deselect();
  const saved=persistChange(id,{status:'trash',previousStatus:previous},{quiet:true});
- toast('Moved to Trash · Restore from Trash');
- await saved;
+ toast('Moving to Trash…');
+ if(await saved)toast('Moved to Trash · recoverable');
 }
 async function restoreFromTrash(id){
  const record=records().find(r=>r.id===id);if(!record||reviewFor(record).status!=='trash')return;
@@ -234,8 +234,8 @@ async function restoreFromTrash(id){
  const status=['inbox','act','keep','dismiss'].includes(destination)?destination:'inbox';
  if(app.selectedId===id)deselect();
  const saved=persistChange(id,{status,previousStatus:null},{quiet:true});
- toast('Restored to '+status);
- await saved;
+ toast('Restoring capture…');
+ if(await saved)toast('Restored to '+status);
 }
 async function addTag(){
  const id=app.selectedId,record=records().find(r=>r.id===id),input=$('tag-input');
