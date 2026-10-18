@@ -176,3 +176,15 @@ h1,h2,h3,h4,h5,h6,strong,b{font-weight:600}
   .list-tools .kbd{display:none}
   .list-tools #source-filter{display:block;width:100%;max-width:none;min-height:47px;padding:10px 14px;text-align:left}
 }
+
+/* v0.6 recoverable Trash */
+.capture-row{position:relative;display:flex;align-items:stretch}
+.capture-row .capture-item{flex:1;min-width:0;padding-right:51px}
+.capture-trash-button,.capture-restore-button{position:absolute;top:13px;right:13px;width:34px;height:34px;border:1px solid #e4e4e4;border-radius:9px;background:#f7f7f7;color:#666;font-size:23px;line-height:1;display:grid;place-items:center;opacity:.78}
+.capture-row:hover .capture-trash-button,.capture-row:hover .capture-restore-button,.capture-trash-button:focus-visible,.capture-restore-button:focus-visible{opacity:1;background:#ebebeb}
+.detail-title-controls{display:flex;gap:8px;align-items:center;flex:none}
+.title-trash-button{display:grid;place-items:center;min-width:38px;min-height:36px}
+.title-trash-button .lucide{width:19px;height:19px}
+.trash-detail-actions{border-top:1px solid var(--line);padding:14px 20px;background:#fff}
+.trash-detail-actions .restore-main{width:100%;flex:none}
+@media(max-width:760px){.capture-trash-button,.capture-restore-button{opacity:1;top:12px;right:10px;width:37px;height:37px}.capture-row .capture-item{padding-right:54px}}
