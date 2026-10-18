@@ -46,3 +46,20 @@ body[data-font-size="l"]{--font-scale:1.39}
  .review-btn{min-width:0}
  .date-group-heading{padding-left:12px}
 }
+
+/* v0.3: typography, screenshot-first presentation, Lucide icons */
+body[data-font-size="s"]{--font-scale:1.18}
+body[data-font-size="m"]{--font-scale:1.35}
+body[data-font-size="l"]{--font-scale:1.52}
+.nav-ic{display:grid;place-items:center;flex:none}
+.lucide{width:20px;height:20px;display:block;flex:none}
+.nav-ic .lucide{width:21px;height:21px}
+.brand-mark .lucide{width:24px;height:24px}
+.review-btn{display:flex;align-items:center;justify-content:center;gap:8px}
+.review-btn .lucide{height:19px;width:19px}
+.review-btn.inbox .lucide{height:21px;width:21px}
+.remember-connection{display:flex;align-items:flex-start;gap:11px;margin:20px 0 4px;padding:13px;border:1px solid #e0e5da;background:#f6f8f2;border-radius:10px;cursor:pointer}
+.remember-connection input{width:17px;height:17px;flex:none;margin-top:3px;accent-color:var(--accent)}
+.remember-connection strong{display:block;font-size:13px;line-height:1.4}
+.remember-connection small{display:block;font-size:11px;line-height:1.6;color:#6e7e70;margin-top:4px}
+@media(max-width:760px){.review-btn{gap:5px}.review-btn .lucide{width:17px;height:17px}}
