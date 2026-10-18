@@ -6,7 +6,7 @@ const $ = id => document.getElementById(id);
 const by = (tag, cls, value) => {const el = document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;};
 const STORAGE_KEY = 'capture-inbox-settings-v1';
 const FONT_SIZE_KEY = 'capture-inbox-font-size-v0.2';
-const APP_VERSION = '0.5.2';
+const APP_VERSION = '0.5.3';
 const REMEMBER_KEY = 'capture-inbox-remember-v0.3';
 const PERSISTENT_TOKEN_KEY = 'capture-inbox-persistent-session-v0.3';
 const TOKEN_KEY = 'capture-inbox-session-v1';
