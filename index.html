@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=0.3.0">
-  <script src="app.js?v=0.3.0" defer></script>
+  <link rel="stylesheet" href="styles.css?v=0.4.0">
+  <script src="app.js?v=0.4.0" defer></script>
 </head>
 <body>
  <div id="app">
@@ -26,7 +26,7 @@
       <div class="nav-separator"></div>
       <button class="nav-btn" data-view="all"><span class="nav-ic"><svg class="lucide lucide-archive" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg></span>All captures</button>
     </nav>
-    <div class="sidebar-foot"><div class="sidebar-version" id="version-label">v0.3.0</div><p class="eyebrow">STORAGE</p><div class="storage"><span class="status-dot" id="status-dot"></span><span id="connection-label">Demo · Not connected</span></div><button class="sidebar-settings" id="settings-btn">Settings <span>↗</span></button></div>
+    <div class="sidebar-foot"><div class="sidebar-version" id="version-label">v0.4.0</div><p class="eyebrow">STORAGE</p><div class="storage"><span class="status-dot" id="status-dot"></span><span id="connection-label">Demo · Not connected</span></div><button class="sidebar-settings" id="settings-btn">Settings <span>↗</span></button></div>
   </aside>
   <main class="workspace">
     <header class="topbar"><button class="mobile-menu" id="menu-btn" aria-label="Open menu">☰</button><span class="eyebrow desktop-only">PERSONAL CAPTURE SYSTEM</span><span class="topbar-actions"><div class="font-control" role="group" aria-label="Font size"><button type="button" data-font-size="s" aria-pressed="false" title="Small text">S</button><button type="button" data-font-size="m" aria-pressed="true" title="Medium text">M</button><button type="button" data-font-size="l" aria-pressed="false" title="Large text">L</button></div><span id="mode-pill" class="mode-pill">DEMO</span><button class="icon-button" id="refresh-btn" aria-label="Refresh captures" title="Refresh captures">↻</button><button class="icon-button mobile-settings" id="mobile-settings-btn" aria-label="Settings">⚙</button></span></header>
@@ -42,7 +42,14 @@
         <div id="detail-placeholder" class="detail-placeholder"><div class="placeholder-graphic">↗</div><h2>Everything worth remembering.</h2><p>Select a capture to review the text, see the original screenshot, and decide what to do next.</p></div>
         <div id="detail-content" class="detail-content" hidden>
           <div class="detail-top"><button class="back-button" id="back-btn">← Back to list</button><div class="detail-time" id="detail-date"></div></div>
-          <div class="detail-scroll"><div class="detail-meta"><span id="detail-source" class="source-chip"></span><span id="detail-status" class="status-chip"></span></div><h2 id="detail-title"></h2>
+          <div class="detail-scroll"><div class="detail-meta"><span id="detail-source" class="source-chip"></span><span id="detail-status" class="status-chip"></span></div>
+            <div class="detail-title-row"><h2 id="detail-title"></h2><button type="button" id="edit-title" class="quiet-button title-edit-button" aria-label="Edit capture title">Edit title</button></div>
+            <form id="title-editor" class="title-editor" hidden>
+              <label for="title-input">Capture title</label>
+              <input type="text" id="title-input" maxlength="160" autocomplete="off" required aria-describedby="title-edit-hint">
+              <p id="title-edit-hint">Change the displayed title without altering the original capture.</p>
+              <div class="title-edit-actions"><span id="title-edit-status" role="status"></span><button type="button" id="cancel-title" class="quiet-button">Cancel</button><button type="submit" id="save-title" class="primary-button">Save title</button></div>
+            </form>
             <div class="source-box"><div class="small-label">ORIGINAL SOURCE</div><p id="detail-source-name"></p><p class="detail-source-info" id="detail-source-info"></p><a id="detail-link" class="origin-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Open original ↗</a></div>
             <div class="detail-section"><div class="section-header"><h3>Original screenshot</h3><button class="quiet-button" id="open-image" hidden>Open image ↗</button></div><div id="image-shell" class="image-shell"><p>Choose a capture to view the original.</p></div></div>
             <div class="detail-section"><div class="section-header"><h3>Captured text</h3><button class="quiet-button" id="copy-btn">Copy text</button></div><div id="detail-text" class="captured-body"></div></div>
