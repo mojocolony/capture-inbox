@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f5f4f0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://api.dropboxapi.com https://content.dropboxapi.com; img-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.dropboxapi.com https://content.dropboxapi.com; img-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'">
   <title>Capture Inbox</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=0.2.0">
+  <script src="app.js?v=0.2.0" defer></script>
 </head>
 <body>
  <div id="app">
@@ -23,10 +26,10 @@
       <div class="nav-separator"></div>
       <button class="nav-btn" data-view="all"><span class="nav-ic">▦</span>All captures</button>
     </nav>
-    <div class="sidebar-foot"><p class="eyebrow">STORAGE</p><div class="storage"><span class="status-dot" id="status-dot"></span><span id="connection-label">Demo · Not connected</span></div><button class="sidebar-settings" id="settings-btn">Settings <span>↗</span></button></div>
+    <div class="sidebar-foot"><div class="sidebar-version" id="version-label">v0.2.0</div><p class="eyebrow">STORAGE</p><div class="storage"><span class="status-dot" id="status-dot"></span><span id="connection-label">Demo · Not connected</span></div><button class="sidebar-settings" id="settings-btn">Settings <span>↗</span></button></div>
   </aside>
   <main class="workspace">
-    <header class="topbar"><button class="mobile-menu" id="menu-btn" aria-label="Open menu">☰</button><span class="eyebrow desktop-only">PERSONAL CAPTURE SYSTEM</span><span class="topbar-actions"><span id="mode-pill" class="mode-pill">DEMO</span><button class="icon-button" id="refresh-btn" aria-label="Refresh captures" title="Refresh captures">↻</button><button class="icon-button mobile-settings" id="mobile-settings-btn" aria-label="Settings">⚙</button></span></header>
+    <header class="topbar"><button class="mobile-menu" id="menu-btn" aria-label="Open menu">☰</button><span class="eyebrow desktop-only">PERSONAL CAPTURE SYSTEM</span><span class="topbar-actions"><div class="font-control" role="group" aria-label="Font size"><button type="button" data-font-size="s" aria-pressed="false" title="Small text">S</button><button type="button" data-font-size="m" aria-pressed="true" title="Medium text">M</button><button type="button" data-font-size="l" aria-pressed="false" title="Large text">L</button></div><span id="mode-pill" class="mode-pill">DEMO</span><button class="icon-button" id="refresh-btn" aria-label="Refresh captures" title="Refresh captures">↻</button><button class="icon-button mobile-settings" id="mobile-settings-btn" aria-label="Settings">⚙</button></span></header>
     <div class="workspace-body">
       <section class="list-panel" aria-label="Capture list">
         <div class="list-heading"><div><p class="eyebrow" id="section-eyebrow">NEEDS YOUR ATTENTION</p><h1 id="view-title">Inbox</h1><p class="subtext" id="view-subtitle">Things you've saved for later.</p></div><div class="big-counter" id="view-counter">0</div></div>
